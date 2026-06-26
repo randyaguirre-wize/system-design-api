@@ -89,7 +89,7 @@ class ProductServiceImplTest {
         existing.setName("Old");
         existing.setPrice(new BigDecimal("1.00"));
         when(repository.findById(1L)).thenReturn(Optional.of(existing));
-        when(repository.save(existing)).thenReturn(existing);
+        when(repository.update(existing)).thenReturn(existing);
 
         ProductRequest req = new ProductRequest();
         req.setName("New");
@@ -99,7 +99,7 @@ class ProductServiceImplTest {
 
         assertThat(result.getName()).isEqualTo("New");
         assertThat(result.getPrice()).isEqualByComparingTo("2.00");
-        verify(repository).save(existing);
+        verify(repository).update(existing);
     }
 
     @Test

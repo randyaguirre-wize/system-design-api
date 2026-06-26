@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -33,6 +34,7 @@ public class ProductServiceImpl implements ProductService {
         Product product = new Product();
         product.setName(request.getName());
         product.setPrice(request.getPrice());
+        product.setCreatedAt(LocalDateTime.now());
         return repository.save(product);
     }
 
@@ -42,13 +44,13 @@ public class ProductServiceImpl implements ProductService {
         Product product = findById(id);
         product.setName(request.getName());
         product.setPrice(request.getPrice());
-        return repository.save(product);
+        return repository.update(product);
     }
 
     @Override
     @Transactional
     public void delete(Long id) {
-        findById(id); // throws if not found
+        findById(id);
         repository.deleteById(id);
     }
 }
