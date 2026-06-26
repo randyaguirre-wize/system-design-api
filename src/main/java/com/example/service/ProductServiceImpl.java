@@ -6,6 +6,7 @@ import com.example.model.Product;
 import com.example.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public Product create(ProductRequest request) {
         Product product = new Product();
         product.setName(request.getName());
@@ -35,6 +37,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public Product update(Long id, ProductRequest request) {
         Product product = findById(id);
         product.setName(request.getName());
@@ -43,6 +46,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
         findById(id); // throws if not found
         repository.deleteById(id);
